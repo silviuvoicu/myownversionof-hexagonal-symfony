@@ -112,11 +112,26 @@ class ProjectContext extends BaseContext
     private function projectManagerExists()
     {
         $projectManager = new ProjectManager("silviu");
+        $projectManager->setPassword("qwerty");
+        $encoder = $this->getService('security.encoder_factory')->getEncoder($projectManager);
+        $encodedPassword = $encoder->encodePassword(
+                    $projectManager->getPassword(),
+                    $projectManager->getSalt()
+                );
+        $projectManager->setPassword($encodedPassword);
+        $em= $this->getEntityManager();
+        $em->persist($projectManager);
+        $em->flush();
+        return $projectManager;
     }   
     
     private function iFillTheLoginFormWithValidDataForProjectManager()
     {
-        
+         $name = "silviu";
+         $this->getMinkContext()->visit($this->getMinkContext()->getMinkParameter("base_url").$this->generateUrl('login'));
+         $this->getMinkContext()->fillField("username", $name);
+         $this->getMinkContext()->fillField("password", "qwerty");
+         $this->getMinkContext()->pressButton("login");
     }        
     
     
