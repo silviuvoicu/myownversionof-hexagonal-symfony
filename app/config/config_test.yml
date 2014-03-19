@@ -7,7 +7,9 @@ framework:
         storage_id: session.storage.mock_file
     profiler:
         collect: false
-
+doctrine:
+    dbal:
+      dbname:   "%database_name%_test"
 web_profiler:
     toolbar: false
     intercept_redirects: false

@@ -1,0 +1,18 @@
+default:
+#    paths:
+#       features: features
+#       bootstrap:  tests/Contexts
+    context:
+        class:  Context\FeatureContext
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url: "http://www.myhexa.localhost/app_test.php"
+            default_session: symfony2
+            selenium2: ~
+            browser_name: firefox
+#            show_cmd: 'firefox %s'
+        Behat\Symfony2Extension\Extension:
+            kernel:
+                path: app/AppKernel.php
+                class: AppKernel
+            mink_driver: true
