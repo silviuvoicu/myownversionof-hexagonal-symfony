@@ -97,8 +97,10 @@ class ProjectContext extends BaseContext
      * @Given /^I have no projects$/
      */
     public function iHaveNoProjects()
-    {
-        throw new PendingException();
+    {   
+        $em= $this->getEntityManager();
+        $numberOfProjects = $em->getRepository("CeremonyTrackerBundle:Project")->findAll();
+        assertNull($numberOfProjects,"There are projects already");
     }
 
     /**
