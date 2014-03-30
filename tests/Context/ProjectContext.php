@@ -3,6 +3,7 @@ namespace Context;
 
 use Behat\Behat\Exception\PendingException;
 use SensioLabs\CeremonyTrackerBundle\Entity\ProjectManager;
+use SensioLabs\CeremonyTrackerBundle\Entity\Project;
 
 require_once 'PHPUnit/Autoload.php';
 require_once 'PHPUnit/Framework/Assert/Functions.php';
@@ -10,14 +11,14 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
 class ProjectContext extends BaseContext
 {
     
-//    private $book;
+   private $projectManager;
     
     /**
      * @Given /^I am a project manager$/
      */
     public function iAmAProjectManager()
     {
-        $this->projectManagerExists();
+        $this->projectManager  = $this->projectManagerExists();
         $this->iFillTheLoginFormWithValidDataForProjectManager();
     }
 
@@ -72,9 +73,20 @@ class ProjectContext extends BaseContext
     /**
      * @Given /^I have (\d+) projects$/
      */
-    public function iHaveProjects($arg1)
+    public function iHaveProjects($numbersOfProjects)
     {
-        throw new PendingException();
+        for($projectNumber=0;$projectNumber < $numbersOfProjects;$projectNumber++)
+        {
+            $projects[] = new Project("project number $projectNumber",$this->projectManager);
+        }
+        $em= $this->getEntityManager();
+        foreach($projects as $project)
+        {
+            $em->persist($project);
+            $em->persist($this->projectManager);
+            $em->flush();
+        }    
+        
     }
 
     /**
