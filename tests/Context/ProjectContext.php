@@ -100,7 +100,7 @@ class ProjectContext extends BaseContext
     {   
         $em= $this->getEntityManager();
         $numberOfProjects = $em->getRepository("CeremonyTrackerBundle:Project")->findAll();
-        assertNull($numberOfProjects,"There are projects already");
+        assertEmpty($numberOfProjects,"There are projects already");
     }
 
     /**
