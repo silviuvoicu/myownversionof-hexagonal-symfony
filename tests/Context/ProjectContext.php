@@ -94,7 +94,7 @@ class ProjectContext extends BaseContext
      */
     public function iListMyProjects()
     {
-        throw new PendingException();
+        $this->getMinkContext()->visit($this->getMinkContext()->getMinkParameter("base_url").$this->generateUrl('list_my_projects'));
     }
 
     /**
