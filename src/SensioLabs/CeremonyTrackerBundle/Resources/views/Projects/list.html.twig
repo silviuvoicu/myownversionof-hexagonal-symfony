@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {#%  for flashMessage in app.session.flashbag.get('success') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %} 
+{% for flashMessage in app.session.flashbag.get('failure') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %#}
+
+
+    <h2>My projects:</h2>
+    <ol>
+        {% for project in projects %}
+            <li>{{ project.name }}</li>
+        {% endfor %}
+    </ol>
+
+
+    <h3>Create new project:</h3>
+    <form action="{#{ path('create_project') }#}" method="POST" novalidate>
+        {{ form_errors(project_form) }}
+        {{ form(project_form) }}
+    </form>
+{% endblock body %}

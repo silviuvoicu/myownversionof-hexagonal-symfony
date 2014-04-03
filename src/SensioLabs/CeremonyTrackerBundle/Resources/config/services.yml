@@ -3,8 +3,8 @@ parameters:
 services:
    behat.listener:
        class: %behat.listener.class%
-       arguments: 
-           - @kernel
+       arguments:
+          - @kernel
        tags:
           - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
           
@@ -34,11 +34,22 @@ services:
         arguments:
             - CeremonyTrackerBundle:Project
    
+   form.create_project:
+        class:           Symfony\Component\Form\FormInterface
+        factory_service: form.factory
+        factory_method:  create
+        arguments:
+            - @form_type.create_project
+            - []
+   
    
    form_view.create_project:
         class:           Symfony\Component\Form\FormView
         factory_service: form.create_project
         factory_method:  createView
+        
+   form_type.create_project:
+        class:           SensioLabs\CeremonyTrackerBundle\Form\CreateProjectType       
    
    security.token:
         class:           Symfony\Component\Security\Core\Authentication\Token\TokenInterface

@@ -11,14 +11,14 @@ require_once 'PHPUnit/Framework/Assert/Functions.php';
 class ProjectContext extends BaseContext
 {
     
-   private $projectManager;
+//   private $projectManager;
     
     /**
      * @Given /^I am a project manager$/
      */
     public function iAmAProjectManager()
     {
-        $this->projectManager  = $this->projectManagerExists();
+        $this->projectManagerExists();
         $this->iFillTheLoginFormWithValidDataForProjectManager();
     }
 
@@ -75,15 +75,16 @@ class ProjectContext extends BaseContext
      */
     public function iHaveProjects($numbersOfProjects)
     {
+        $projectManager = $this->getProjectManager();
         for($projectNumber=0;$projectNumber < $numbersOfProjects;$projectNumber++)
         {
-            $projects[] = new Project("project number $projectNumber",$this->projectManager);
+            $projects[] = new Project("project number $projectNumber",$projectManager);
         }
         $em= $this->getEntityManager();
         foreach($projects as $project)
         {
             $em->persist($project);
-            $em->persist($this->projectManager);
+            $em->persist($projectManager);
             $em->flush();
         }    
         
@@ -100,9 +101,9 @@ class ProjectContext extends BaseContext
     /**
      * @Then /^I should get a list of (\d+) projects$/
      */
-    public function iShouldGetAListOfProjects($arg1)
+    public function iShouldGetAListOfProjects($numberOfProjects)
     {
-        throw new PendingException();
+        assertEquals($numberOfProjects,$this->getNumberOfProjects(),"The number of Projects are not the same");
     }
 
     /**
@@ -136,7 +137,7 @@ class ProjectContext extends BaseContext
         $em= $this->getEntityManager();
         $em->persist($projectManager);
         $em->flush();
-        return $projectManager;
+//        return $projectManager;
     }   
     
     private function iFillTheLoginFormWithValidDataForProjectManager()
@@ -146,7 +147,21 @@ class ProjectContext extends BaseContext
          $this->getMinkContext()->fillField("username", $name);
          $this->getMinkContext()->fillField("password", "qwerty");
          $this->getMinkContext()->pressButton("login");
-    }        
+    } 
+    
+    private function getProjectManager()
+    {
+        $em= $this->getEntityManager();
+        $projectManager = $em->getRepository("CeremonyTrackerBundle:ProjectManager")->findOneByName("silviu");
+        return $projectManager;
+    } 
+    
+    private function getNumberOfProjects()
+    {
+        $em= $this->getEntityManager();
+        $numberOfProjects = $em->getRepository("CeremonyTrackerBundle:Project")->findAll();
+        return count($numberOfProjects);
+    }         
     
     
 }
