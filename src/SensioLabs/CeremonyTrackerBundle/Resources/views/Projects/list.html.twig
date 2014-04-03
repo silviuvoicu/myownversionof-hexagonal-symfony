@@ -12,13 +12,16 @@
         </div>
     {% endfor %#}
 
-
-    <h2>My projects:</h2>
-    <ol>
-        {% for project in projects %}
-            <li>{{ project.name }}</li>
-        {% endfor %}
-    </ol>
+    {% if projects|length > 0 %}
+       <h2>My projects:</h2>
+       <ol>
+          {% for project in projects %}
+              <li>{{ project.name }}</li>
+          {% endfor %}
+      </ol>
+    {% else %}
+       <h3>You don't have any projects yet.</h3>
+    {% endif %}   
 
 
     <h3>Create new project:</h3>

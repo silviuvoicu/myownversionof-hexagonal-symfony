@@ -121,7 +121,7 @@ class ProjectContext extends BaseContext
      */
     public function iShouldGetAnEmptyListOfProjects()
     {
-        throw new PendingException();
+        $this->iShouldGetAListOfProjects(0);
     }
 
     private function projectManagerExists()
