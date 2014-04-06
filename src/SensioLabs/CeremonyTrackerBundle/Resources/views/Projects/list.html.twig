@@ -6,11 +6,11 @@
             {{ flashMessage }}
         </div>
     {% endfor %} 
-{#% for flashMessage in app.session.flashbag.get('failure') %}
+{% for flashMessage in app.session.flashbag.get('failure') %}
         <div class="flash-notice">
             {{ flashMessage }}
         </div>
-    {% endfor %#}
+    {% endfor %}
 
     {% if projects|length > 0 %}
        <h2>My projects:</h2>

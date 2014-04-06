@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="SensioLabs\CeremonyTrackerBundle\Entity\Project">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+                <option name="fields">name</option>
+                <option name="message">This name of the project already exists.</option>
+        </constraint>
+        <property name="name">
+            <constraint name="NotBlank" >
+                <option name="message">Project does not have a name</option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">255</option>
+                <option name="minMessage">The name must have more than 2 characters</option>
+            </constraint> 
+        </property>       
+    </class>
+</constraint-mapping>

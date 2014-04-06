@@ -61,7 +61,7 @@ class ProjectContext extends BaseContext
      */
     public function iCreateTheProject2()
     {
-        throw new PendingException();
+        $this->iCreateTheProject(" ");
     }
 
     /**
@@ -69,7 +69,9 @@ class ProjectContext extends BaseContext
      */
     public function theProjectShouldNotBeSaved()
     {
-        throw new PendingException();
+        $em= $this->getEntityManager();
+        $nameOfProject = $em->getRepository("CeremonyTrackerBundle:Project")->findOneByName("");
+        assertNull($nameOfProject,"The project  was  saved in the database");
     }
 
     /**
@@ -77,7 +79,7 @@ class ProjectContext extends BaseContext
      */
     public function iShouldBeNotifiedAboutTheProjectCreationFailure()
     {
-        throw new PendingException();
+       $this->getMinkContext()->assertPageContainsText("Failed to create project"); 
     }
 
     /**

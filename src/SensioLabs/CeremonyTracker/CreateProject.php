@@ -27,9 +27,7 @@ class CreateProject
     {
         
         $errors =$this->validator->validate($project) ;
-//        var_dump($project);
-//        var_dump($this->validator);
-//        var_dump($errors);die;
+     
         if (count($errors) > 0) {
             $this->dispatcher->dispatch(self::FAILURE, new Event([
                 'project' => $project,
