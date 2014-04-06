@@ -53,7 +53,7 @@ class ProjectContext extends BaseContext
      */
     public function iShouldBeNotifiedAboutTheProjectCreationSuccess()
     {
-        throw new PendingException();
+        $this->getMinkContext()->assertPageContainsText("Project has been created.");         
     }
 
     /**

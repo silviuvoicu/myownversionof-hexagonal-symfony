@@ -1,12 +1,12 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    {#%  for flashMessage in app.session.flashbag.get('success') %}
+    {%  for flashMessage in app.session.flashbag.get('success') %}
         <div class="flash-notice">
             {{ flashMessage }}
         </div>
     {% endfor %} 
-{% for flashMessage in app.session.flashbag.get('failure') %}
+{#% for flashMessage in app.session.flashbag.get('failure') %}
         <div class="flash-notice">
             {{ flashMessage }}
         </div>
