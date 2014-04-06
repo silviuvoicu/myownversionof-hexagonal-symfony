@@ -20,12 +20,29 @@ services:
             - @security.token
             - @form_view.create_project
             - @templating         
-   
+   controllers.create_project:
+        class: SensioLabs\CeremonyTrackerBundle\Controller\CreateProjectController
+        arguments:
+            - @use_case.create_project
+            - @security.token
+            - @form.create_project
+            - @session.flashbag
+            - @router
+        tags:
+            - { name: kernel.event_listener, event: sensio.ceremony_tracker.project_creation_success, method: onSuccess }
+            - { name: kernel.event_listener, event: sensio.ceremony_tracker.project_creation_failure, method: onFailure }
+  
    use_case.get_manager_projects:
         class: SensioLabs\CeremonyTracker\GetManagerProjects
         arguments:
             - @repository.projects 
-   
+            
+   use_case.create_project:
+        class: SensioLabs\CeremonyTracker\CreateProject
+        arguments:
+            - @repository.projects
+            - @event_dispatcher
+            - @validator
    
    repository.projects:
         class:           Doctrine\Common\Persistence\ObjectRepository
@@ -51,6 +68,12 @@ services:
    form_type.create_project:
         class:           SensioLabs\CeremonyTrackerBundle\Form\CreateProjectType       
    
+   session.flashbag:
+        class:           Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface
+        factory_service: session
+        factory_method:  getFlashBag
+
+     
    security.token:
         class:           Symfony\Component\Security\Core\Authentication\Token\TokenInterface
         factory_service: security.context

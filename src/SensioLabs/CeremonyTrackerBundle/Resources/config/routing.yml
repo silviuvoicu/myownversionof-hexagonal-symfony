@@ -13,9 +13,9 @@ list_my_projects:
     defaults:  { _controller: controllers.list_my_projects:listAction }
     requirements:
         _method: GET
-#
-#create_project:
-#    path:      /
-#    defaults:  { _controller: controllers.create_project:createAction }
-#    requirements:
-#        _method: POST
+
+create_project:
+    path:      /
+    defaults:  { _controller: controllers.create_project:createAction }
+    requirements:
+        _method: POST

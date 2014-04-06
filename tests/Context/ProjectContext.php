@@ -25,16 +25,25 @@ class ProjectContext extends BaseContext
     /**
      * @When /^I create the "([^"]*)" project$/
      */
-    public function iCreateTheProject($arg1)
+    public function iCreateTheProject($name)
     {
-        throw new PendingException();
+//        $this->iListMyProjects();
+        $this->getMinkContext()->fillField("create_project_name", $name);
+//        $this->getMinkContext()->pressButton("submit");
+        $inputCreateProject= $this->getMinkContext()->getSession()->getPage()->find('css', '#create_project_name');
+        $inputCreateProject->focus();
+        $this->getMinkContext()->getSession()->getDriver()->keyPress($inputCreateProject->getXPath(), 13);
+//               
     }
-
+    
     /**
      * @Then /^the "([^"]*)" project should be saved$/
      */
-    public function theProjectShouldBeSaved($arg1)
+    public function theProjectShouldBeSaved($name)
     {
+//        $em= $this->getEntityManager();
+//        $nameOfProject = $em->getRepository("CeremonyTrackerBundle:Project")->findOneByName($name);
+//        assertEquals($name,$nameOfProject,"The project $name was not saved in the database");
         throw new PendingException();
     }
 

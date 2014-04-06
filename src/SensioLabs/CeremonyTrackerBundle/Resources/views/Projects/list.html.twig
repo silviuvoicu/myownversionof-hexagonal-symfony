@@ -25,8 +25,10 @@
 
 
     <h3>Create new project:</h3>
-    <form action="{#{ path('create_project') }#}" method="POST" novalidate>
+    {{ form_start(project_form, {'action': path('create_project'), 'method': 'POST', attr:{'novalidate':'novalidate'} } ) }}
+    
         {{ form_errors(project_form) }}
-        {{ form(project_form) }}
-    </form>
+        {{ form_widget(project_form) }}
+    <!--button  name="submit" type="submit">Submit</button-->
+    {{ form_end(project_form) }}
 {% endblock body %}

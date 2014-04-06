@@ -2,7 +2,7 @@ Feature: Manager can create a project
   In order to be able to track my project ceremonies
   As a project manager
   I need to be able to create a project
-
+  @javascript
   Scenario: Successfully creating a project with a name
     Given I am a project manager
     When I create the "Nokia" project
