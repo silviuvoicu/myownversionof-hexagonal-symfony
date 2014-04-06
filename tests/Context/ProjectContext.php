@@ -29,10 +29,10 @@ class ProjectContext extends BaseContext
     {
 //        $this->iListMyProjects();
         $this->getMinkContext()->fillField("create_project_name", $name);
-//        $this->getMinkContext()->pressButton("submit");
-        $inputCreateProject= $this->getMinkContext()->getSession()->getPage()->find('css', '#create_project_name');
-        $inputCreateProject->focus();
-        $this->getMinkContext()->getSession()->getDriver()->keyPress($inputCreateProject->getXPath(), 13);
+        $this->getMinkContext()->pressButton("submit");
+//        $inputCreateProject= $this->getMinkContext()->getSession()->getPage()->find('css', '#create_project_name');
+//        $inputCreateProject->focus();
+//        $this->getMinkContext()->getSession()->getDriver()->keyPress($inputCreateProject->getXPath(), 13);
 //               
     }
     
@@ -40,11 +40,12 @@ class ProjectContext extends BaseContext
      * @Then /^the "([^"]*)" project should be saved$/
      */
     public function theProjectShouldBeSaved($name)
-    {
-//        $em= $this->getEntityManager();
-//        $nameOfProject = $em->getRepository("CeremonyTrackerBundle:Project")->findOneByName($name);
-//        assertEquals($name,$nameOfProject,"The project $name was not saved in the database");
-        throw new PendingException();
+    {   
+//    
+        $em= $this->getEntityManager();
+        $nameOfProject = $em->getRepository("CeremonyTrackerBundle:Project")->findOneByName($name);
+//        var_dump($nameOfProject->getName());die;
+        assertEquals($name,$nameOfProject->getName(),"The project $name was not saved in the database");
     }
 
     /**
